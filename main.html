@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游戏预测</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+<div id="app">
+    <h2>游戏预测</h2>
+    <table>
+        <tr v-for="row in 5" :key="row">
+            <td v-for="col in 3" :key="col">
+                <label>
+                    <input type="text" v-model="numbers[(row - 1) * 3 + col - 1]" :placeholder="(row - 1) * 3 + col">
+                </label>
+            </td>
+        </tr>
+    </table>
+    <button @click="submitForm">提交</button>
+</div>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            const storedNumbers = localStorage.getItem('numbers');
+            return {
+                numbers: storedNumbers? JSON.parse(storedNumbers) : new Array(15).fill('')
+            }
+        },
+        methods: {
+            submitForm() {
+                this.numbers.shift();
+                localStorage.setItem('numbers', JSON.stringify(this.numbers));
+                alert(this.numbers);
+            }
+        }
+    });
+
+    app.mount('#app');
+</script>
+</body>
+
+</html>
