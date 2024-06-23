@@ -66,16 +66,17 @@ const dealWith = (arr, bgC, msg) => {
     const rule2 = () => {
         let count0 = Math.min(10 - arr.lastIndexOf('0'), arr.length);
         let count5 = Math.min(10 - arr.lastIndexOf('5'), arr.length);
-        let count = count0 < count5 ? [count0, 0] : [count5, 5];
+        let count = count0 > count5 ? [count0, 0] : [count5, 5];
         if (count[0] >= 8) {
             addGreen05()
             msg.push("连续" + count[0] + "次未出" + count[1] + " 必 压 0 5")
         } else if (count[0] === 4 && arr.length !== 4) {
             addGreen05()
             msg.push("第" + count[0] + "次未出" + count[1] + " 建议 压 0 5")
-        } else if (count[0] > 4) {
-            msg.push("提醒: 连续" + count[0] + "次未出" + count[1])
         }
+        msg.push("提醒: 连续" + count0 + "次未出" + 0)
+        msg.push("提醒: 连续" + count5 + "次未出" + 5)
+
     }
     rule2()
 
