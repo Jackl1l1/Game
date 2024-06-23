@@ -81,7 +81,7 @@
                 return maxIndex;
             },
             ifHot(n) {
-                if (n===0)return
+                if (n===0)return this.counts[0];
                 if (n === this.findMaxIndex(this.counts)) {
                     return "50"
                 }
