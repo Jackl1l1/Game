@@ -47,9 +47,6 @@ const dealWith = (arr, bgC, msg) => {
     let count5 = arr.length - arr.lastIndexOf('5') - 1
     let countL = count0 > count5 ? [count0, 0] : [count5, 5];
     let countR = count0 < count5 ? [count0, 0] : [count5, 5];
-    console.log(count0)
-    console.log(count5)
-    console.log(countR)
     if (count0 > 4) {
         msg.push("提醒: 连续" + count0 + "次未出" + 0)
     }
