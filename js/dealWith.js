@@ -3,7 +3,6 @@ const dealWith = (arr, bgC, msg) => {
     bgC.fill(0)
     msg.length = 0
 
-
     const getLastNum = (index) => {
         if (arr.length < index) return -1
         return arr[arr.length - index]
@@ -33,10 +32,10 @@ const dealWith = (arr, bgC, msg) => {
         addGreen([0, 5])
     }
     const countMaxNum = () => {
-        return arr.filter(num => num >= 5).length
+        return arr.slice(-10).filter(num => num >= 5).length
     }
     const countMinNum = () => {
-        return arr.filter(num => num < 5).length
+        return arr.slice(-10).filter(num => num < 5).length
     }
 
 
@@ -44,70 +43,73 @@ const dealWith = (arr, bgC, msg) => {
      * 出5/0后第4局出0/5，没有出会第8局出0/5
      * 提醒：连续多少次未出0/5
      */
-    const rule2 = () => {
-        let count0 = arr.length - arr.lastIndexOf('0') - 1
-        let count5 = arr.length - arr.lastIndexOf('5') - 1
-        let count = count0 > count5 ? [count0, 0] : [count5, 5];
-        if (count0 > 4) {
-            msg.push("提醒: 连续" + count0 + "次未出" + 0)
-        }
-        if (count5 > 4) {
-            msg.push("提醒: 连续" + count5 + "次未出" + 5)
-        }
-        if (count[0] >= 8) {
-            addGreen05()
-            msg.push("连续" + count[0] + "次未出" + count[1] + " 必 压 0 5")
-        } else if (count[0] === 4 && arr.length !== 4) {
-            addGreen05()
-            msg.push("第" + count[0] + "次未出 0 5 建议 压 0 5")
-        }
-
-        /**   规则
-         * 开大压大开小压小
-         * 10局以内出大7次以上压小
-         * 10局以内出小7次以上压大
-         */
-        const rule1 = () => {
-            if (arr.length !== 0) {
-                if (countMaxNum() >= 7) {
-                    addGreenMin()
-                    msg.push("10局以内出大7次以上压小")
-                } else if (countMinNum() >= 7) {
-                    addGreenMax()
-                    msg.push("10局以内出小7次以上压大")
-                } else if (getLastNum(1) >= 5) {
-                    addGreenMax()
-                    msg.push(getLastNum(1) + "压" + getLastNum(1) + "大")
-                } else if (getLastNum(1) < 5) {
-                    addGreenMin()
-                    msg.push(getLastNum(1) + "压" + getLastNum(1) + "小")
-
-                }
-            }
-        }
-        rule1()
-
+    let count0 = arr.length - arr.lastIndexOf('0') - 1
+    let count5 = arr.length - arr.lastIndexOf('5') - 1
+    let countL = count0 > count5 ? [count0, 0] : [count5, 5];
+    let countR = count0 < count5 ? [count0, 0] : [count5, 5];
+    console.log(count0)
+    console.log(count5)
+    console.log(countR)
+    if (count0 > 4) {
+        msg.push("提醒: 连续" + count0 + "次未出" + 0)
     }
-    rule2()
+    if (count5 > 4) {
+        msg.push("提醒: 连续" + count5 + "次未出" + 5)
+    }
+    if (countL[0] >= 8) {
+        addGreen05()
+        msg.push("连续" + countL[0] + "次未出" + countL[1] + " 必 压 0 5")
+    } else if (countL[0] === 4 && arr.length !== 4) {
+        addGreen05()
+        msg.push("第" + countL[0] + "次未出 0 5 建议 压 0 5")
+    }
+    /**
+     * 出5/0中的一个，下局出0/5必须加上带3局配上常规，例如0285
+     */
+    if (count0!==count5 && countR[0] <= 2) {
+        addGreen05()
+        msg.push(++countR[0] + "局以内出了" + countR[1]+ " 下" + (4 - countR[0]) + "局带上 0 5")
+    }
+
+
+    /**   规则
+     * 开大压大开小压小
+     * 10局以内出大7次以上压小
+     * 10局以内出小7次以上压大
+     */
+    if (arr.length !== 0) {
+        if (countMaxNum() >= 7) {
+            addGreenMin()
+            msg.push("10局以内出大7次以上压小")
+        } else if (countMinNum() >= 7) {
+            addGreenMax()
+            msg.push("10局以内出小7次以上压大")
+        } else if (getLastNum(1) >= 5) {
+            addGreenMax()
+            msg.push(getLastNum(1) + "压" + getLastNum(1) + "大")
+        } else if (getLastNum(1) < 5) {
+            addGreenMin()
+            msg.push(getLastNum(1) + "压" + getLastNum(1) + "小")
+
+        }
+    }
 
 
     /** 规则
      * 1.出A后面第4,5个也是A
      */
-    const rule4 = () => {
-        if (getLastNum(3) !== -1) {
-            let n3 = getLastNum(3)
-            let n4 = getLastNum(4)
-            console.log(n3, n4)
-            addGreen([n3, n4])
-            if (n3===n4){
-                msg.push("注意单押 " + n3 + " +组合")
-            }else {
-                msg.push("注意单押 " + n4 + " +组合")
-            }
+    if (getLastNum(3) !== -1) {
+        let n3 = getLastNum(3)
+        let n4 = getLastNum(4)
+        addGreen([n3, n4])
+        if (n3 === n4) {
+            msg.push("注意单押 " + n3 + " +组合")
+        } else {
+            msg.push("注意单押 " + n3 + " +组合")
+            msg.push("注意单押 " + n4 + " +组合")
         }
     }
-    rule4()
+
 
     /** 规则
      * 1.组合1/3/4/7
@@ -130,7 +132,6 @@ const dealWith = (arr, bgC, msg) => {
             }
         }
     }
-    rule3()
 
 
 }
