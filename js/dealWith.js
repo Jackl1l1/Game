@@ -62,8 +62,13 @@ const dealWith = (arr, bgC, msg,hotMun) => {
     }
     if (countL[0] >= 8) {
         addGreen05()
-        msg.push("连续" + countL[0] + "次未出" + countL[1] + " 必压 0 5")
+        addGreen05()
+        addGreen05()
+        // 连续8次未出 0或5, 必压 0 5
+        msg.push("连续" + countL[0] + "次未出 0或5, 必压 0 5")
     } else if (countL[0] === 4 && arr.length !== 4) {
+        addGreen05()
+        addGreen05()
         addGreen05()
         msg.push("第" + countL[0] + "次未出 0 5 建议 压 0 5")
     }
@@ -117,7 +122,7 @@ const dealWith = (arr, bgC, msg,hotMun) => {
         for (let i = 0; i < numSets.length; i++) {
             if (numSets[i].includes(num.toString())) {
                 addGreen(numSets[i]);
-                // msg.push("组合 " + numSets[i].join(","));
+                // msg.push("组合：" + numSets[i].join(","));
                 s.push(numSets[i].join(","))
             }
         }
@@ -127,7 +132,7 @@ const dealWith = (arr, bgC, msg,hotMun) => {
     for (let i = 0; i < numSets.length; i++) {
         if (numSets[i].includes(getLastNum(1).toString())) {
             addGreen(numSets[i]);
-            msg.push("组合 " + numSets[i].join(","));
+            msg.push("组合：" + numSets[i].join(","));
         }
     }
     /** 规则

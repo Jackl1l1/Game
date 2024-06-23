@@ -91,7 +91,7 @@ table {
 }
 
 .hot3 {
-    background-color: rgb(197, 221, 240);
+    background-color: rgba(255, 128, 128, 0.6);
     transition: background-color 0.3s ease;
 }
 
