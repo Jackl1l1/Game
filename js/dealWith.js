@@ -1,0 +1,121 @@
+const dealWith = (arr, bgC, msg) => {
+    // 清空背景原有的颜色
+    bgC.fill('')
+    msg.length = 0
+
+    const getLastNum = (index) => {
+        return arr[arr.length - index]
+    }
+    const addGreen = (index) => {
+        if (typeof index === typeof 1) {
+            if (bgC[index] === '') {
+                bgC[index] = 'g1'
+            }
+            bgC[index] = 'g' + ++bgC[index][1]
+        }
+        index.forEach(i => {
+            if (bgC[i] === '') {
+                bgC[i] = 'g1'
+            }
+            bgC[i] = 'g' + ++bgC[i][1]
+        })
+    }
+    const addGreenMin = () => {
+        addGreen([0, 1, 2, 3, 4])
+    }
+    const addGreenMax = () => {
+        addGreen([5, 6, 7, 8, 9])
+    }
+    const addGreen05 = () => {
+        addGreen([0, 5])
+    }
+    const countMaxNum = () => {
+        return arr.filter(num => num >= 5)
+    }
+    const countMinNum = () => {
+        return arr.filter(num => num < 5)
+    }
+    /**   规则
+     * 开大压大开小压小
+     * 10局以内出大7次以上压小
+     * 10局以内出小7次以上压大
+     */
+    const rule1 = () => {
+        if (countMaxNum().length >= 7) {
+            addGreenMin()
+            msg.push("10局以内出大7次以上压小")
+        } else if (countMinNum().length >= 7) {
+            addGreenMax()
+            msg.push("10局以内出小7次以上压大")
+        } else if (getLastNum(1) >= 5) {
+            addGreenMax()
+            msg.push("开大压大")
+        } else if (getLastNum(1) < 5) {
+            addGreenMin()
+            msg.push("开小压小")
+        }
+    }
+    rule1()
+
+    /**   规则
+     * 出5/0后第4局出0/5，没有出会第8局出0/5
+     * 提醒：连续多少次未出0/5
+     */
+    const rule2 = () => {
+        let count0 = Math.min(10 - arr.lastIndexOf('0'), arr.length);
+        let count5 = Math.min(10 - arr.lastIndexOf('5'), arr.length);
+        let count = count0 < count5 ? [count0, 0] : [count5, 5];
+        if (count[0] >= 8) {
+            addGreen05()
+            msg.push("连续" + count[0] + "次未出" + count[1] + " 必 压 0 5")
+        } else if (count[0] === 4 && arr.length !== 4) {
+            addGreen05()
+            msg.push("第" + count[0] + "次未出" + count[1] + " 建议 压 0 5")
+        } else if (count[0] > 4) {
+            msg.push("提醒: 连续" + count[0] + "次未出" + count[1])
+        }
+    }
+    rule2()
+
+    /** 规则
+     * 1.常规1/3/4/7
+     * 2.常规2/9/8/6
+     * 3.常规2/5/8/0
+     * 4.常规1/4/7
+     * 5.常规3/6/9
+     */
+    const rule3 = () => {
+        const numSets = [
+            ['1', '3', '7', '9'],
+            ['2', '9', '8', '6'],
+            ['2', '5', '8', '0'],
+            ['3', '6', '9']
+        ];
+        const msgs = [
+            "常规 1/3/4/7",
+            "常规 2/9/8/6",
+            "常规 2/5/8/0",
+            "常规 3/6/9"
+        ];
+        for (let i = 0; i < numSets.length; i++) {
+            if (numSets[i].includes(getLastNum(1).toString())) {
+                addGreen(numSets[i]);
+                msg.push("常规 "+numSets[i].join(","));
+            }
+        }
+    }
+    rule3()
+
+    /** 规则
+     * 1.常规1/3/4/7
+     * 2.常规2/9/8/6
+     * 3.常规2/5/8/0
+     * 4.常规1/4/7
+     * 5.常规3/6/9
+     */
+    const rule4 = () => {
+        
+    }
+    rule4()
+
+}

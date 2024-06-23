@@ -2,11 +2,11 @@ body {
     height: 100vh;
 }
 
-div {
-    position: relative;
-    top: 30%;
-    transform: translateY(-30%);
-}
+/*div {*/
+/*    position: relative;*/
+/*    top: 30%;*/
+/*    transform: translateY(-30%);*/
+/*}*/
 
 h2 {
     text-align: center;
@@ -17,8 +17,32 @@ table {
     width: 50%;
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
-    margin: 20px auto;
+    margin: 0 auto;
     border-radius: 10px;
+}
+
+.g1{
+    background: rgb(226, 240, 217);
+}
+.g2{
+    background: rgb(197, 224, 180);
+}
+.g3{
+    background: rgb(169, 209, 142);
+}
+.g4{
+    background: rgb(112, 173, 71);
+}
+.g5{
+    background: rgb(84, 130, 53);
+}
+.g6{
+    background: rgb(56, 87, 35);
+}
+
+p {
+    /*padding: 10px;*/
+    text-align: center;
 }
 
 th,
@@ -32,6 +56,7 @@ input {
     border: none;
     background-color: transparent;
     font-size: 16px;
+    margin-bottom: 20px;
     text-align: center;
     width: 100%;
     box-sizing: border-box;
@@ -47,6 +72,12 @@ button {
     margin: 0 auto;
     display: block;
     border-radius: 5px;
+}
+
+.submitForm {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
 }
 
 @media (max-width: 768px) {
