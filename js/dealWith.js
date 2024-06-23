@@ -4,6 +4,7 @@ const dealWith = (arr, bgC, msg) => {
     msg.length = 0
 
     const getLastNum = (index) => {
+        if (arr.length < index) return -1
         return arr[arr.length - index]
     }
     const addGreen = (index) => {
@@ -14,10 +15,12 @@ const dealWith = (arr, bgC, msg) => {
             bgC[index] = 'g' + ++bgC[index][1]
         }
         index.forEach(i => {
-            if (bgC[i] === '') {
-                bgC[i] = 'g1'
+            if (i !== -1) {
+                if (bgC[i] === '') {
+                    bgC[i] = 'g1'
+                }
+                bgC[i] = 'g' + ++bgC[i][1]
             }
-            bgC[i] = 'g' + ++bgC[i][1]
         })
     }
     const addGreenMin = () => {
@@ -41,18 +44,20 @@ const dealWith = (arr, bgC, msg) => {
      * 10局以内出小7次以上压大
      */
     const rule1 = () => {
-        if (countMaxNum().length >= 7) {
-            addGreenMin()
-            msg.push("10局以内出大7次以上压小")
-        } else if (countMinNum().length >= 7) {
-            addGreenMax()
-            msg.push("10局以内出小7次以上压大")
-        } else if (getLastNum(1) >= 5) {
-            addGreenMax()
-            msg.push("开大压大")
-        } else if (getLastNum(1) < 5) {
-            addGreenMin()
-            msg.push("开小压小")
+        if (arr.length !== 0) {
+            if (countMaxNum().length >= 7) {
+                addGreenMin()
+                msg.push("10局以内出大7次以上压小")
+            } else if (countMinNum().length >= 7) {
+                addGreenMax()
+                msg.push("10局以内出小7次以上压大")
+            } else if (getLastNum(1) >= 5) {
+                addGreenMax()
+                msg.push("开大压大")
+            } else if (getLastNum(1) < 5) {
+                addGreenMin()
+                msg.push("开小压小")
+            }
         }
     }
     rule1()
@@ -86,7 +91,7 @@ const dealWith = (arr, bgC, msg) => {
      */
     const rule3 = () => {
         const numSets = [
-            ['1', '3', '7', '9'],
+            ['1', '3', '4', '7'],
             ['2', '9', '8', '6'],
             ['2', '5', '8', '0'],
             ['3', '6', '9']
@@ -100,21 +105,20 @@ const dealWith = (arr, bgC, msg) => {
         for (let i = 0; i < numSets.length; i++) {
             if (numSets[i].includes(getLastNum(1).toString())) {
                 addGreen(numSets[i]);
-                msg.push("常规 "+numSets[i].join(","));
+                msg.push("常规 " + numSets[i].join(","));
             }
         }
     }
     rule3()
 
     /** 规则
-     * 1.常规1/3/4/7
-     * 2.常规2/9/8/6
-     * 3.常规2/5/8/0
-     * 4.常规1/4/7
-     * 5.常规3/6/9
+     * 1.出A后面第4,5个也是A
      */
     const rule4 = () => {
-        
+        if (arr.length > 5) {
+            addGreen([getLastNum(4), getLastNum(5)])
+            msg.push("出A后面第4,5个也是A")
+        }
     }
     rule4()
 
