@@ -91,23 +91,6 @@ const dealWith = (arr, bgC, msg) => {
         }
     }
 
-
-    /** 规则
-     * 1.出A后面第4,5个也是A
-     */
-    if (getLastNum(3) !== -1) {
-        let n3 = getLastNum(3)
-        let n4 = getLastNum(4)
-        addGreen([n3, n4])
-        if (n3 === n4) {
-            msg.push("注意单押 " + n3 + " +组合")
-        } else {
-            msg.push("注意单押 " + n3 + " +组合")
-            msg.push("注意单押 " + n4 + " +组合")
-        }
-    }
-
-
     /** 规则
      * 1.组合1/3/4/7
      * 2.组合2/9/8/6
@@ -120,14 +103,36 @@ const dealWith = (arr, bgC, msg) => {
         ['2', '9', '8', '6'],
         ['2', '5', '8', '0'],
         ['3', '6', '9']
-    ];
-    for (let i = 0; i < numSets.length; i++) {
-        if (numSets[i].includes(getLastNum(1).toString())) {
-            addGreen(numSets[i]);
-            msg.push("组合 " + numSets[i].join(","));
+    ]
+    const addGroup = (num) => {
+        for (let i = 0; i < numSets.length; i++) {
+            if (numSets[i].includes(num.toString())) {
+                addGreen(numSets[i]);
+                // msg.push("组合 " + numSets[i].join(","));
+            }
         }
     }
+    addGroup(getLastNum(1))
 
+    /** 规则
+     * 1.出A后面第4,5个也是A
+     */
+    if (getLastNum(3) !== -1) {
+        let n3 = getLastNum(3)
+        let n4 = getLastNum(4)
+        addGreen([n3, n4])
+        if (n3 === n4) {
+            addGreen(n3)
+            addGreen(n3)
+            msg.push("注意单押 " + n3 + " +组合")
+        } else {
+            addGreen(n3)
+            addGreen(n4)
+
+            msg.push("注意单押 " + n3 + " +组合")
+            msg.push("注意单押 " + n4 + " +组合")
+        }
+    }
 
 
 }

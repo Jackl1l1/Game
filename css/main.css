@@ -19,81 +19,115 @@ table {
     background-color: #f8f9fa;
     margin: 0 auto;
     border-radius: 10px;
+    transition: background-color 0.3s ease;
 }
 
-.g1{
-    background: rgb(226, 240, 217);
-}
-.g2{
+.g0 {
+    background: rgb(255, 255, 255);
+    transition: background-color 0.3s ease;
+}.g1 {
+     background: rgb(226, 240, 217);
+     transition: background-color 0.3s ease;
+ }
+
+.g2 {
     background: rgb(197, 224, 180);
+    transition: background-color 0.3s ease;
 }
-.g3{
+
+.g3 {
     background: rgb(169, 209, 142);
+    transition: background-color 0.3s ease;
 }
-.g4{
+
+.g4 {
     background: rgb(112, 173, 71);
+    transition: background-color 0.3s ease;
 }
-.g5{
+
+.g5 {
     background: rgb(84, 130, 53);
+    transition: background-color 0.3s ease;
 }
-.g6{
+
+.g6 {
     background: rgb(56, 87, 35);
+    transition: background-color 0.3s ease;
+}
+
+.hot0 {
+    background-color: rgb(255, 255, 255);
+    transition: background-color 0.3s ease;
 }
 
 .hot1 {
     background-color: rgb(157, 195, 230);
+    transition: background-color 0.3s ease;
 }
 
 .hot2 {
     background-color: rgb(177, 208, 235);
+    transition: background-color 0.3s ease;
 }
 
 .hot3 {
     background-color: rgb(197, 221, 240);
+    transition: background-color 0.3s ease;
 }
 
 .hot4 {
     background-color: rgba(255, 128, 128, 0.8);
+    transition: background-color 0.3s ease;
 }
 
 .hot5 {
     background-color: rgba(255, 128, 128, 0.9);
+    transition: background-color 0.3s ease;
 }
 
 .hot6 {
     background-color: rgba(255, 128, 128, 1);
+    transition: background-color 0.3s ease;
 }
 
 .hot7 {
     background-color: rgba(255, 96, 96, 1);
+    transition: background-color 0.3s ease;
 }
 
 .hot8 {
     background-color: rgba(255, 64, 64, 1);
+    transition: background-color 0.3s ease;
 }
 
 .hot9 {
     background-color: rgba(255, 32, 32, 1);
+    transition: background-color 0.3s ease;
 }
 
 .hot10 {
     background-color: rgba(255, 0, 0, 1);
+    transition: background-color 0.3s ease;
 }
 
 .hot11 {
     background-color: rgba(255, 0, 0, 1);
+    transition: background-color 0.3s ease;
 }
 
 .hot12 {
     background-color: rgba(255, 0, 0, 1);
+    transition: background-color 0.3s ease;
 }
 
 .hot13 {
     background-color: rgba(255, 0, 0, 1);
+    transition: background-color 0.3s ease;
 }
 
 .hot14 {
     background-color: rgba(255, 0, 0, 1);
+    transition: background-color 0.3s ease;
 }
 
 .hot15 {
@@ -241,10 +275,11 @@ table {
 }
 
 
-h1{
+h1 {
     text-align: center;
 
 }
+
 p {
     /*padding: 10px;*/
     /*font-size: 24px;*/
