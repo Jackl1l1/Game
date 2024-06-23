@@ -49,10 +49,11 @@ const dealWith = (arr, bgC, msg) => {
                 msg.push("10局以内出小7次以上压大")
             } else if (getLastNum(1) >= 5) {
                 addGreenMax()
-                msg.push("开大压大")
+                msg.push("开"+getLastNum(1) +"压"+getLastNum(1) )
             } else if (getLastNum(1) < 5) {
                 addGreenMin()
-                msg.push("开小压小")
+                msg.push("开"+getLastNum(1) +"压"+getLastNum(1) )
+
             }
         }
     }
@@ -79,11 +80,11 @@ const dealWith = (arr, bgC, msg) => {
     rule2()
 
     /** 规则
-     * 1.常规1/3/4/7
-     * 2.常规2/9/8/6
-     * 3.常规2/5/8/0
-     * 4.常规1/4/7
-     * 5.常规3/6/9
+     * 1.组合1/3/4/7
+     * 2.组合2/9/8/6
+     * 3.组合2/5/8/0
+     * 4.组合1/4/7
+     * 5.组合3/6/9
      */
     const rule3 = () => {
         const numSets = [
@@ -95,7 +96,7 @@ const dealWith = (arr, bgC, msg) => {
         for (let i = 0; i < numSets.length; i++) {
             if (numSets[i].includes(getLastNum(1).toString())) {
                 addGreen(numSets[i]);
-                msg.push("常规 " + numSets[i].join(","));
+                msg.push("组合 " + numSets[i].join(","));
             }
         }
     }
@@ -108,6 +109,8 @@ const dealWith = (arr, bgC, msg) => {
         if (arr.length > 3) {
             addGreen([getLastNum(3)])
             msg.push("注意单押 " + getLastNum(3) + " +组合")
+            addGreen([getLastNum(4)])
+            msg.push("注意单押 " + getLastNum(4) + " +组合")
         }
     }
     rule4()

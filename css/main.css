@@ -244,6 +244,7 @@ table {
 
 p {
     /*padding: 10px;*/
+    font-size: 24px;
     text-align: center;
 }
 
@@ -257,8 +258,8 @@ td {
 input {
     border: none;
     background-color: transparent;
-    font-size: 16px;
-    margin-bottom: 20px;
+    font-size: 32px;
+    margin: 0 auto;
     text-align: center;
     width: 100%;
     box-sizing: border-box;
