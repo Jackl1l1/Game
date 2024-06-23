@@ -112,7 +112,13 @@ const dealWith = (arr, bgC, msg) => {
             }
         }
     }
-    addGroup(getLastNum(1))
+    for (let i = 0; i < numSets.length; i++) {
+        if (numSets[i].includes(getLastNum(1).toString())) {
+            addGreen(numSets[i]);
+            msg.push("组合 " + numSets[i].join(","));
+        }
+    }
+    // addGroup(getLastNum(1))
 
     /** 规则
      * 1.出A后面第4,5个也是A
@@ -122,12 +128,12 @@ const dealWith = (arr, bgC, msg) => {
         let n4 = getLastNum(4)
         addGreen([n3, n4])
         if (n3 === n4) {
-            addGreen(n3)
-            addGreen(n3)
+            addGroup(n3)
+            addGroup(n3)
             msg.push("注意单押 " + n3 + " +组合")
         } else {
-            addGreen(n3)
-            addGreen(n4)
+            addGroup(n3)
+            addGroup(n4)
 
             msg.push("注意单押 " + n3 + " +组合")
             msg.push("注意单押 " + n4 + " +组合")
