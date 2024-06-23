@@ -96,13 +96,15 @@ const dealWith = (arr, bgC, msg) => {
      */
     const rule4 = () => {
         if (getLastNum(3) !== -1) {
-            addGreen(getLastNum(3))
-            msg.push("注意单押 " + getLastNum(3) + " +组合")
-            if (getLastNum(3) !== getLastNum(4)) {
-                addGreen(getLastNum(4))
-                msg.push("注意单押 " + getLastNum(4) + " +组合")
+            let n3 = getLastNum(3)
+            let n4 = getLastNum(4)
+            console.log(n3, n4)
+            addGreen([n3, n4])
+            if (n3===n4){
+                msg.push("注意单押 " + n3 + " +组合")
+            }else {
+                msg.push("注意单押 " + n4 + " +组合")
             }
-
         }
     }
     rule4()
