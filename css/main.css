@@ -241,10 +241,13 @@ table {
 }
 
 
-
+h1{
+    text-align: center;
+    
+}
 p {
     /*padding: 10px;*/
-    font-size: 24px;
+    /*font-size: 24px;*/
     text-align: center;
 }
 

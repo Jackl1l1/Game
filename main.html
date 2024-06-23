@@ -13,7 +13,7 @@
 
 <body>
 <div id="app">
-    <p>近10次数字: {{numbers.join(" ")}}</p>
+    <h1>近10次数字: {{numbers.join(" ")}}</h1>
     <label>
         <input type="text" @input="validateInput" placeholder="请按顺序输入">
     </label>
@@ -40,7 +40,7 @@
             </td>
         </tr>
     </table>
-    <p>触发规则:</p>
+    <p>预测压数:</p>
     <p v-for="msg in msg_" :key="msg">{{msg}}</p>
     <!--    <p >{{msg_}}</p>-->
 
