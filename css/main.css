@@ -54,6 +54,22 @@ table {
     background: rgb(56, 87, 35);
     transition: background-color 0.3s ease;
 }
+.g7 {
+    background: rgb(255, 255, 0);
+    transition: background-color 0.3s ease;
+}
+.g8 {
+    background: rgb(255, 255, 0);
+    transition: background-color 0.3s ease;
+}
+.g9 {
+    background: rgb(255, 255, 0);
+    transition: background-color 0.3s ease;
+}
+.g10 {
+    background: rgb(255, 255, 0);
+    transition: background-color 0.3s ease;
+}
 
 .hot0 {
     background-color: rgb(255, 255, 255);
