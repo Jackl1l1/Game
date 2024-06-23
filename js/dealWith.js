@@ -58,7 +58,7 @@ const dealWith = (arr, bgC, msg) => {
     }
     if (countL[0] >= 8) {
         addGreen05()
-        msg.push("连续" + countL[0] + "次未出" + countL[1] + " 必 压 0 5")
+        msg.push("连续" + countL[0] + "次未出" + countL[1] + " 必压 0 5")
     } else if (countL[0] === 4 && arr.length !== 4) {
         addGreen05()
         msg.push("第" + countL[0] + "次未出 0 5 建议 压 0 5")
@@ -66,9 +66,9 @@ const dealWith = (arr, bgC, msg) => {
     /**
      * 出5/0中的一个，下局出0/5必须加上带3局配上常规，例如0285
      */
-    if (count0!==count5 && countR[0] <= 2) {
+    if (count0 !== count5 && countR[0] <= 2) {
         addGreen05()
-        msg.push(++countR[0] + "局以内出了" + countR[1]+ " 下" + (4 - countR[0]) + "局带上 0 5")
+        msg.push(++countR[0] + "局以内出了" + countR[1] + " 下" + (4 - countR[0]) + "局带上 0 5")
     }
 
 
@@ -118,20 +118,19 @@ const dealWith = (arr, bgC, msg) => {
      * 4.组合1/4/7
      * 5.组合3/6/9
      */
-    const rule3 = () => {
-        const numSets = [
-            ['1', '3', '4', '7'],
-            ['2', '9', '8', '6'],
-            ['2', '5', '8', '0'],
-            ['3', '6', '9']
-        ];
-        for (let i = 0; i < numSets.length; i++) {
-            if (numSets[i].includes(getLastNum(1).toString())) {
-                addGreen(numSets[i]);
-                msg.push("组合 " + numSets[i].join(","));
-            }
+    const numSets = [
+        ['1', '3', '4', '7'],
+        ['2', '9', '8', '6'],
+        ['2', '5', '8', '0'],
+        ['3', '6', '9']
+    ];
+    for (let i = 0; i < numSets.length; i++) {
+        if (numSets[i].includes(getLastNum(1).toString())) {
+            addGreen(numSets[i]);
+            msg.push("组合 " + numSets[i].join(","));
         }
     }
+
 
 
 }
