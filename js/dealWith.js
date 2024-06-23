@@ -1,25 +1,21 @@
 const dealWith = (arr, bgC, msg) => {
     // 清空背景原有的颜色
-    bgC.fill('')
+    bgC.fill(0)
     msg.length = 0
+
 
     const getLastNum = (index) => {
         if (arr.length < index) return -1
         return arr[arr.length - index]
     }
     const addGreen = (index) => {
+        console.log(bgC)
         if (typeof index === typeof 1) {
-            if (bgC[index] === '') {
-                bgC[index] = 'g1'
-            }
-            bgC[index] = 'g' + ++bgC[index][1]
+            bgC[index]++
         }
         index.forEach(i => {
             if (i !== -1) {
-                if (bgC[i] === '') {
-                    bgC[i] = 'g1'
-                }
-                bgC[i] = 'g' + ++bgC[i][1]
+                bgC[i]++
             }
         })
     }
@@ -33,10 +29,10 @@ const dealWith = (arr, bgC, msg) => {
         addGreen([0, 5])
     }
     const countMaxNum = () => {
-        return arr.filter(num => num >= 5)
+        return arr.filter(num => num >= 5).length
     }
     const countMinNum = () => {
-        return arr.filter(num => num < 5)
+        return arr.filter(num => num < 5).length
     }
     /**   规则
      * 开大压大开小压小
@@ -45,10 +41,10 @@ const dealWith = (arr, bgC, msg) => {
      */
     const rule1 = () => {
         if (arr.length !== 0) {
-            if (countMaxNum().length >= 7) {
+            if (countMaxNum() >= 7) {
                 addGreenMin()
                 msg.push("10局以内出大7次以上压小")
-            } else if (countMinNum().length >= 7) {
+            } else if (countMinNum() >= 7) {
                 addGreenMax()
                 msg.push("10局以内出小7次以上压大")
             } else if (getLastNum(1) >= 5) {
@@ -96,12 +92,6 @@ const dealWith = (arr, bgC, msg) => {
             ['2', '5', '8', '0'],
             ['3', '6', '9']
         ];
-        const msgs = [
-            "常规 1/3/4/7",
-            "常规 2/9/8/6",
-            "常规 2/5/8/0",
-            "常规 3/6/9"
-        ];
         for (let i = 0; i < numSets.length; i++) {
             if (numSets[i].includes(getLastNum(1).toString())) {
                 addGreen(numSets[i]);
@@ -115,9 +105,9 @@ const dealWith = (arr, bgC, msg) => {
      * 1.出A后面第4,5个也是A
      */
     const rule4 = () => {
-        if (arr.length > 5) {
-            addGreen([getLastNum(4), getLastNum(5)])
-            msg.push("出A后面第4,5个也是A")
+        if (arr.length > 3) {
+            addGreen([getLastNum(3)])
+            msg.push("注意单押 " + getLastNum(3) + " +组合")
         }
     }
     rule4()

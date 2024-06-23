@@ -21,16 +21,28 @@
         <!--        <button @click="numbers[numbers.length]=''">下一个</button>-->
         <!--        <button @click="submitForm">提交</button>-->
     </div>
-    <table>
-        <tr v-for="row in 2" :key="row">
-            <td :class="bgC[(row - 1) * 5 + col-1]" v-for="col in 5" :key="col">
-                {{(row - 1) * 5 + col-1}}
+    <table v-for="row in 2" :key="row">
+        <tr>
+            <td :class="'g'+(bgC[(row - 1) * 5 + col-1]).toString()" v-for="col in 5" :key="col">
+                {{(row - 1) * 5 + col - 1}}
+            </td>
+        </tr>
+        <tr>
+            <td :class="`hot`+(counts[(row - 1) * 5 + col - 1]).toString()" v-for="col in 5"
+                :key="col">
+                出现 {{counts[(row - 1) * 5 + col - 1]}} 次
+            </td>
+        </tr>
+        <tr>
+            <td :class="`hot`+(inputValue.length-inputValue.lastIndexOf(((row - 1) * 5 + col - 1).toString())-1).toString()" v-for="col in 5"
+                :key="col">
+                 {{inputValue.length-inputValue.lastIndexOf(((row - 1) * 5 + col - 1).toString())-1}} 次 未出现
             </td>
         </tr>
     </table>
     <p>触发规则:</p>
     <p v-for="msg in msg_" :key="msg">{{msg}}</p>
-<!--    <p >{{msg_}}</p>-->
+    <!--    <p >{{msg_}}</p>-->
 
     <!--    <table>-->
     <!--        <tr>-->
@@ -51,22 +63,25 @@
         data() {
             const storedNumbers = localStorage.getItem('numbers');
             return {
-                numbers: storedNumbers ? JSON.parse(storedNumbers) : new Array(15).fill(''),
-                counts: new Array(10).fill(0),
-                notAppearedCount: new Array(10).fill(15),
-                bgC: new Array(10).fill(''),
+                numbers: [],
+                inputValue: [],
+                bgC: new Array(10).fill(`0`),
                 msg_: [],
+                counts: new Array(10).fill(0),
             }
         },
         methods: {
             validateInput(event) {
-                const inputValue = event.target.value.split('');
-                this.numbers = inputValue.slice(-10)
-
-                console.log(this.numbers);
+                this.inputValue = event.target.value.split('');
+                this.numbers = this.inputValue.slice(-10)
+                this.numbers.forEach((n) => {
+                })
+                this.counts = []
+                for (let i = 0; i < 10; i++) {
+                    this.counts.push(this.numbers.filter(num => num === i.toString()).length)
+                }
 
                 dealWith(this.numbers, this.bgC, this.msg_)
-
             },
         }
     });
