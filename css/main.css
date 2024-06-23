@@ -303,7 +303,11 @@ h1 {
 p {
     /*padding: 10px;*/
     /*font-size: 24px;*/
-    text-align: center;
+    text-align: left;
+}
+
+.msg{
+    margin-left: 25%;
 }
 
 th,

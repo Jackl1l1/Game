@@ -41,8 +41,11 @@
             </td>
         </tr>
     </table>
-    <p>预测压数:</p>
-    <p v-for="m in msg_" :key="m">{{m}}</p>
+    <div class="msg">
+        <p>预测压数:</p>
+        <p v-for="m in msg_" :key="m">{{m}}</p>
+    </div>
+
 </div>
 
 <script>
