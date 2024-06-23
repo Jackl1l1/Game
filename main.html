@@ -13,7 +13,7 @@
 
 <body>
 <div id="app">
-    <h1>近10次数字: {{numbers.join(" ")}}</h1>
+    <h1>近15次数字: {{numbers.join(" ")}}</h1>
     <label>
         <input type="text" @input="validateInput" placeholder="请按顺序输入">
     </label>
@@ -28,34 +28,21 @@
             </td>
         </tr>
         <tr>
-            <td :class="`hot`+(counts[(row - 1) * 5 + col - 1]).toString()" v-for="col in 5"
+            <td :class="`hot`+ifHot((row - 1) * 5 + col-1)" v-for="col in 5"
                 :key="col">
                 出现 {{counts[(row - 1) * 5 + col - 1]}} 次
             </td>
         </tr>
         <tr>
-            <td :class="`hot`+(inputValue.length-inputValue.lastIndexOf(((row - 1) * 5 + col - 1).toString())-1).toString()" v-for="col in 5"
+            <td :class="`hot`+(inputValue.length-inputValue.lastIndexOf(((row - 1) * 5 + col - 1).toString())-1).toString()"
+                v-for="col in 5"
                 :key="col">
-                 {{inputValue.length-inputValue.lastIndexOf(((row - 1) * 5 + col - 1).toString())-1}} 次 未出现
+                {{inputValue.length - inputValue.lastIndexOf(((row - 1) * 5 + col - 1).toString()) - 1}} 次 未出现
             </td>
         </tr>
     </table>
     <p>预测压数:</p>
     <p v-for="msg in msg_" :key="msg">{{msg}}</p>
-    <!--    <p >{{msg_}}</p>-->
-
-    <!--    <table>-->
-    <!--        <tr>-->
-    <!--            <td>数字</td>-->
-    <!--            <td>次数</td>-->
-    <!--            <td>未出现次数</td>-->
-    <!--        </tr>-->
-    <!--        <tr v-for="i in 10" :key="i">-->
-    <!--            <th>{{i - 1}}</th>-->
-    <!--            <th>{{counts[i - 1]}}</th>-->
-    <!--            <th>{{notAppearedCount[i - 1]}}</th>-->
-    <!--        </tr>-->
-    <!--    </table>-->
 </div>
 
 <script>
@@ -73,16 +60,36 @@
         methods: {
             validateInput(event) {
                 this.inputValue = event.target.value.split('');
-                this.numbers = this.inputValue.slice(-10)
-                this.numbers.forEach((n) => {
-                })
+                this.numbers = this.inputValue.slice(-15)
                 this.counts = []
-                for (let i = 0; i < 10; i++) {
+                for (let i = 0; i < 15; i++) {
                     this.counts.push(this.numbers.filter(num => num === i.toString()).length)
                 }
 
                 dealWith(this.numbers, this.bgC, this.msg_)
             },
+            findMaxIndex(arr) {
+                let max = arr[0];
+                let maxIndex = 0;
+
+                for (let i = 1; i < arr.length; i++) {
+                    if (arr[i] > max) {
+                        max = arr[i];
+                        maxIndex = i;
+                    }
+                }
+
+                return maxIndex;
+            },
+            ifHot(n) {
+                if (n===0)return
+                console.log(this.counts)
+                console.log(this.findMaxIndex(this.counts))
+                if (n === this.findMaxIndex(this.counts)) {
+                    return "50"
+                }
+                return this.counts[n]
+            }
         }
     });
 

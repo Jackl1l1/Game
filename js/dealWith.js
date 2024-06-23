@@ -9,13 +9,13 @@ const dealWith = (arr, bgC, msg) => {
         return arr[arr.length - index]
     }
     const addGreen = (index) => {
-        if (typeof index===typeof ''){
+        if (typeof index === typeof '') {
             index = parseInt(index)
         }
-        if (index===-1){}
-        else if (typeof index === typeof 1) {
+        if (index === -1) {
+        } else if (typeof index === typeof 1) {
             bgC[index]++
-        }else {
+        } else {
             index.forEach(i => {
                 if (i !== -1) {
                     bgC[i]++
@@ -40,19 +40,18 @@ const dealWith = (arr, bgC, msg) => {
     }
 
 
-
     /**   规则
      * 出5/0后第4局出0/5，没有出会第8局出0/5
      * 提醒：连续多少次未出0/5
      */
     const rule2 = () => {
-        let count0 = arr.length - arr.lastIndexOf('0')-1
-        let count5 = arr.length - arr.lastIndexOf('5')-1
+        let count0 = arr.length - arr.lastIndexOf('0') - 1
+        let count5 = arr.length - arr.lastIndexOf('5') - 1
         let count = count0 > count5 ? [count0, 0] : [count5, 5];
-        if (count0>4){
+        if (count0 > 4) {
             msg.push("提醒: 连续" + count0 + "次未出" + 0)
         }
-        if (count5>4){
+        if (count5 > 4) {
             msg.push("提醒: 连续" + count5 + "次未出" + 5)
         }
         if (count[0] >= 8) {
@@ -78,10 +77,10 @@ const dealWith = (arr, bgC, msg) => {
                     msg.push("10局以内出小7次以上压大")
                 } else if (getLastNum(1) >= 5) {
                     addGreenMax()
-                    msg.push(getLastNum(1) +"压"+getLastNum(1) +"大" )
+                    msg.push(getLastNum(1) + "压" + getLastNum(1) + "大")
                 } else if (getLastNum(1) < 5) {
                     addGreenMin()
-                    msg.push(getLastNum(1) +"压"+getLastNum(1) +"小")
+                    msg.push(getLastNum(1) + "压" + getLastNum(1) + "小")
 
                 }
             }
@@ -96,11 +95,14 @@ const dealWith = (arr, bgC, msg) => {
      * 1.出A后面第4,5个也是A
      */
     const rule4 = () => {
-        if (getLastNum(3)!==-1) {
+        if (getLastNum(3) !== -1) {
             addGreen(getLastNum(3))
-            addGreen(getLastNum(4))
             msg.push("注意单押 " + getLastNum(3) + " +组合")
-            msg.push("注意单押 " + getLastNum(4) + " +组合")
+            if (getLastNum(3) !== getLastNum(4)) {
+                addGreen(getLastNum(4))
+                msg.push("注意单押 " + getLastNum(4) + " +组合")
+            }
+
         }
     }
     rule4()
@@ -127,7 +129,6 @@ const dealWith = (arr, bgC, msg) => {
         }
     }
     rule3()
-
 
 
 }
