@@ -60,12 +60,12 @@ const dealWith = (arr, bgC, msg,hotMun) => {
     if (count5 > 4) {
         msg.push("提醒: 连续" + count5 + "次未出" + 5)
     }
-    if (countL[0] >= 8) {
+    if (countR[0] >= 8) {
         addGreen05()
         addGreen05()
         addGreen05()
         // 连续8次未出 0或5, 必压 0 5
-        msg.push("连续" + countL[0] + "次未出 0或5, 必压 0 5")
+        msg.push("连续" + countR[0] + "次未出 0或5, 必压 0 5")
     } else if (countL[0] === 4 && arr.length !== 4) {
         addGreen05()
         addGreen05()
