@@ -1,4 +1,4 @@
-const dealWith = (arr, bgC, msg) => {
+const dealWith = (arr, bgC, msg,hotMun) => {
     // 清空背景原有的颜色
     bgC.fill(0)
     msg.length = 0
@@ -38,6 +38,13 @@ const dealWith = (arr, bgC, msg) => {
         return arr.slice(-10).filter(num => num < 5).length
     }
 
+    /**
+     * 后1位热出  例如34538  8，8是开的数字，这局压的8和3
+     */
+    if (hotMun!==-1){
+        addGreen(hotMun)
+        msg.push("热号是："+hotMun)
+    }
 
     /**   规则
      * 出5/0后第4局出0/5，没有出会第8局出0/5
@@ -82,14 +89,15 @@ const dealWith = (arr, bgC, msg) => {
             addGreenMax()
             msg.push("10局以内出小7次以上压大")
         } else if (getLastNum(1) >= 5) {
-            addGreenMax()
+            addGreen(getLastNum(1))
             msg.push(getLastNum(1) + "压" + getLastNum(1) + "大")
         } else if (getLastNum(1) < 5) {
-            addGreenMin()
+            addGreen(getLastNum(1))
             msg.push(getLastNum(1) + "压" + getLastNum(1) + "小")
 
         }
     }
+
 
     /** 规则
      * 1.组合1/3/4/7
@@ -105,40 +113,41 @@ const dealWith = (arr, bgC, msg) => {
         ['3', '6', '9']
     ]
     const addGroup = (num) => {
+        s =[]
         for (let i = 0; i < numSets.length; i++) {
             if (numSets[i].includes(num.toString())) {
                 addGreen(numSets[i]);
                 // msg.push("组合 " + numSets[i].join(","));
+                s.push(numSets[i].join(","))
             }
         }
+        return s.join(" | ")
     }
+
     for (let i = 0; i < numSets.length; i++) {
         if (numSets[i].includes(getLastNum(1).toString())) {
             addGreen(numSets[i]);
             msg.push("组合 " + numSets[i].join(","));
         }
     }
-    // addGroup(getLastNum(1))
-
     /** 规则
      * 1.出A后面第4,5个也是A
      */
+
     if (getLastNum(3) !== -1) {
         let n3 = getLastNum(3)
         let n4 = getLastNum(4)
+        console.log(n3)
+        console.log(n4)
         addGreen([n3, n4])
         if (n3 === n4) {
             addGroup(n3)
-            addGroup(n3)
-            msg.push("注意单押 " + n3 + " +组合")
-        } else {
-            addGroup(n3)
-            addGroup(n4)
+            msg.push("注意单押 " + n3 + " +组合" +addGroup(n3))
 
-            msg.push("注意单押 " + n3 + " +组合")
-            msg.push("注意单押 " + n4 + " +组合")
+        } else if (n4 !== -1) {
+            msg.push("注意单押 " + n3 + " +组合" +addGroup(n3))
+            msg.push("注意单押 " + n4 + " +组合"+addGroup(n4))
         }
     }
-
 
 }

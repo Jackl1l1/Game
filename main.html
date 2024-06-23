@@ -48,14 +48,14 @@
 <script>
     const app = Vue.createApp({
         data() {
-            const storedNumbers = localStorage.getItem('numbers');
-            return {
-                numbers: [],
-                inputValue: [],
-                bgC: new Array(10).fill(`0`),
-                msg_: [],
-                counts: new Array(10).fill(0),
-            }
+                return{
+                    numbers: [],
+                    inputValue: [],
+                    bgC: new Array(10).fill(`0`),
+                    msg_: [],
+                    counts: new Array(10).fill(0),
+                    hotMun:-1,
+                }
         },
         methods: {
             validateInput(event) {
@@ -66,8 +66,12 @@
                 for (let i = 0; i < 15; i++) {
                     this.counts.push(this.numbers.filter(num => num === i.toString()).length)
                 }
-
-                dealWith(this.numbers, this.bgC, this.msg_)
+                if (this.numbers.length===0){
+                    this.hotMun = -1
+                }else {
+                    this.hotMun = this.findMaxIndex(this.counts)
+                }
+                dealWith(this.numbers, this.bgC, this.msg_,this.hotMun)
             },
             findMaxIndex(arr) {
                 let max = arr[0];
@@ -82,7 +86,7 @@
             },
             ifHot(n) {
                 if (n===0)return this.counts[0];
-                if (n === this.findMaxIndex(this.counts)) {
+                if (n === this.hotMun) {
                     return "50"
                 }
                 return this.counts[n]
