@@ -1,5 +1,6 @@
-const dealWith = (arr, bgC, msg, counts, hotMun, predict) => {
+const dealWith = (arr, bgC, msg, counts, hotMun, predict,successCount) => {
     // 清空背景原有的颜色
+    let old_predict = predict.slice()
     bgC.fill(0)
 
     msg.length = 0
@@ -18,7 +19,7 @@ const dealWith = (arr, bgC, msg, counts, hotMun, predict) => {
     }
     const getLastNum = (index) => {
         if (arr.length < index) return -1
-        return arr[arr.length - index]
+        return parseInt(arr[arr.length - index])
     }
     const addGreen = (index) => {
         if (typeof index === typeof '') {
@@ -59,10 +60,23 @@ const dealWith = (arr, bgC, msg, counts, hotMun, predict) => {
     } else {
         hotMun = -1
     }
+
+    function getIndicesOfZero(arr) {
+        let indices = [];
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] === 0) {
+                indices.push(i);
+            }
+        }
+        return indices;
+    }
+
     if (hotMun !== -1) {
         addGreen(hotMun)
         msg.push("热号是：" + hotMun.join(" "))
+        msg.push("冷号是：" + getIndicesOfZero(counts.slice(0, 9)).join(" "))
     }
+
 
     /**   规则
      * 出5/0后第4局出0/5，没有出会第8局出0/5
@@ -72,6 +86,11 @@ const dealWith = (arr, bgC, msg, counts, hotMun, predict) => {
     let count5 = arr.length - arr.lastIndexOf('5') - 1
     let countL = count0 > count5 ? [count0, 0] : [count5, 5];
     let countR = count0 < count5 ? [count0, 0] : [count5, 5];
+    if (count0 > 4 && count5 > 4) {
+        addGreen05()
+        addGreen05()
+        addGreen05()
+    }
     if (count0 > 4) {
         msg.push("提醒: 连续" + count0 + "次未出" + 0)
     }
@@ -108,16 +127,23 @@ const dealWith = (arr, bgC, msg, counts, hotMun, predict) => {
         if (countMaxNum() >= 7) {
             addGreenMin()
             msg.push("10局以内出大7次以上压小")
+            predict.push("小")
         } else if (countMinNum() >= 7) {
             addGreenMax()
             msg.push("10局以内出小7次以上压大")
+            predict.push("大")
+
         } else if (getLastNum(1) >= 5) {
             addGreen(getLastNum(1))
+            addGreen(getLastNum(1))
             msg.push(getLastNum(1) + "压" + getLastNum(1) + "大")
+            predict.push("大")
+
         } else if (getLastNum(1) < 5) {
             addGreen(getLastNum(1))
+            addGreen(getLastNum(1))
             msg.push(getLastNum(1) + "压" + getLastNum(1) + "小")
-
+            predict.push("小")
         }
     }
 
@@ -150,6 +176,8 @@ const dealWith = (arr, bgC, msg, counts, hotMun, predict) => {
     for (let i = 0; i < numSets.length; i++) {
         if (numSets[i].includes(getLastNum(1).toString())) {
             addGreen(numSets[i]);
+            addGreen(numSets[i]);
+            addGreen(numSets[i]);
             msg.push("组合：" + numSets[i].join(","));
         }
     }
@@ -162,21 +190,25 @@ const dealWith = (arr, bgC, msg, counts, hotMun, predict) => {
         let n4 = getLastNum(4)
         addGreen([n3, n4])
         if (n3 === n4) {
-            addGroup(n3)
-            msg.push("注意单押 " + n3 + " +组合" + addGroup(n3))
+            // addGroup(n3)
+            msg.push("组合" + addGroup(n3) + ".")
+            msg.push("注意单押 " + n3)
 
         } else if (n4 !== -1) {
-            msg.push("注意单押 " + n3 + " +组合" + addGroup(n3))
-            msg.push("注意单押 " + n4 + " +组合" + addGroup(n4))
+            msg.push(".组合" + addGroup(n3))
+
+            msg.push("注意单押 " + n3)
+            msg.push("组合." + addGroup(n4))
+
+            msg.push("注意单押 " + n4)
         }
     }
 
     /**
      * 推荐 押注
      */
-    predict.push("大")
     if (arr.length !== 0) {
-        predict.push("单押 " + findMaxIndices(bgC).join(' 或 '))
+        predict.push(findMaxIndices(bgC))
     }
 
     function getIndicesInOrder(arr) {
@@ -194,10 +226,41 @@ const dealWith = (arr, bgC, msg, counts, hotMun, predict) => {
 
     let predict_arr = getIndicesInOrder(bgC)
 
-    predict.push(predict_arr.slice(0, 2).join(","))
-    predict.push(predict_arr.slice(0, 3).join(","))
-    predict.push(predict_arr.slice(0, 4).join(","))
-    predict.push(predict_arr.slice(0, 5).join(","))
-    predict.push(predict_arr.slice(0, 6).join(","))
+    if (arr.length !== 0) {
+        predict.push(predict_arr.slice(0, 2))
+        predict.push(predict_arr.slice(0, 3))
+        predict.push(predict_arr.slice(0, 4))
+        predict.push(predict_arr.slice(0, 5))
+        predict.push(predict_arr.slice(0, 6))
+    } else {
+        predict.push("推荐压号区")
+        predict.push("    ")
+        predict.push("    ")
+        predict.push("    ")
+        predict.push("    ")
+        predict.push("    ")
+        predict.push("    ")
+    }
 
+    if (arr.length>=2){
+        if (old_predict[1].indexOf(getLastNum(1)) !==-1){
+            successCount[0]++
+        }
+        if (old_predict[2].indexOf(getLastNum(1)) !==-1){
+            successCount[1]++
+        }
+        if (old_predict[3].indexOf(getLastNum(1)) !==-1){
+            successCount[2]++
+        }
+        if (old_predict[4].indexOf(getLastNum(1)) !==-1){
+            successCount[3]++
+        }
+        if (old_predict[5].indexOf(getLastNum(1)) !==-1){
+            successCount[4]++
+        }
+        if (old_predict[6].indexOf(getLastNum(1)) !==-1){
+            successCount[5]++
+        }
+        console.log(successCount)
+    }
 }

@@ -58,30 +58,30 @@
             <table>
                 <tr>
                     <th>胜率</th>
-                    <td>大</td>
+                    <td>{{predict[0]}}</td>
                 </tr>
                 <tr>
-                    <th>100%</th>
+                    <th>{{(((successCount[0]-1)/(numbers.length-1))*100).toFixed(2) + '%' }}</th>
                     <td>{{predict[1]}}</td>
                 </tr>
                 <tr>
-                    <th>100%</th>
+                    <th>{{(((successCount[1]-1)/(numbers.length-1))*100).toFixed(2) + '%' }}</th>
                     <td>{{predict[2]}}</td>
                 </tr>
                 <tr>
-                    <th>100%</th>
+                    <th>{{(((successCount[2]-1)/(numbers.length-1))*100).toFixed(2) + '%' }}</th>
                     <td>{{predict[3]}}</td>
                 </tr>
                 <tr>
-                    <th>100%</th>
+                    <th>{{(((successCount[3]-1)/(numbers.length-1))*100).toFixed(2) + '%' }}</th>
                     <td>{{predict[4]}}</td>
                 </tr>
                 <tr>
-                    <th>100%</th>
+                    <th>{{(((successCount[4]-1)/(numbers.length-1))*100).toFixed(2) + '%' }}</th>
                     <td>{{predict[5]}}</td>
                 </tr>
                 <tr>
-                    <th>100%</th>
+                    <th>{{(((successCount[5]-1)/(numbers.length-1))*100).toFixed(2) + '%' }}</th>
                     <td>{{predict[6]}}</td>
                 </tr>
             </table>
@@ -99,8 +99,9 @@
                     inputValue: [],
                     bgC: new Array(10).fill(`0`),
                     msg_: [],
-                    predict: [],
+                    predict: ["推荐压号区"],
                     counts: new Array(10).fill(0),
+                    successCount :new Array(6).fill(0),
                     hotMun: [],
                     hotMun_15: [],
                     coldMun_15: [],
@@ -111,14 +112,17 @@
                     this.inputValue = event.target.value.split('');
                     this.numbers = this.inputValue.slice(-15)
                     this.counts.length = 0
+                    this.successCount.fill(0)
                     for (let i = 0; i < 15; i++) {
                         this.counts.push(this.numbers.filter(num => num === i.toString()).length)
                     }
-                    // console.log(this.counts)
 
 
-                    dealWith(this.numbers, this.bgC, this.msg_,this.counts, this.hotMun,this.predict)
-
+                    // dealWith(this.numbers, this.bgC, this.msg_,this.counts, this.hotMun,this.predict)
+                    for (let i = 0; i < this.numbers.length; i++) {
+                        dealWith(this.numbers.slice(0,i+1), this.bgC, this.msg_,this.counts, this.hotMun,this.predict,this.successCount)
+                    }
+                    dealWith(this.numbers, this.bgC, this.msg_,this.counts, this.hotMun,this.predict,this.successCount)
                 },
             }
         })
