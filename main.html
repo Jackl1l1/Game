@@ -94,10 +94,12 @@
                     this.inputValue = event.target.value.split('');
                     this.numbers = this.inputValue.slice(-15)
                     this.successCount.fill(0)
+                    this.counts = new Array(10).fill(0)
 
                     for (let i = 0; i <= this.numbers.length; i++) {
-                        dealWith(this.numbers.slice(0, i), this.bgC, this.msg_, this.hotMun, this.predict, this.successCount)
+                        dealWith(this.numbers.slice(0, i), this.bgC, this.msg_, this.counts, this.hotMun, this.predict, this.successCount)
                     }
+                    console.log(this.counts)
                 },
             }
         })
