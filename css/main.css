@@ -344,7 +344,7 @@ button {
 }
 
 .msg{
-    width: 50%;
+    width: 40%;
 }
 
 .box{
@@ -353,7 +353,7 @@ button {
     display: flex;
 }
 .predict {
-    width: 50%;
+    width: 60%;
 }
 .predict table {
     width: 100%;

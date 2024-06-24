@@ -1,4 +1,4 @@
-const dealWith = (arr, bgC, msg, counts, hotMun, predict,successCount) => {
+const dealWith = (arr, bgC, msg, hotMun, predict,successCount) => {
     // 清空背景原有的颜色
     bgC.fill(0)
     msg.length = 0
@@ -38,7 +38,6 @@ const dealWith = (arr, bgC, msg, counts, hotMun, predict,successCount) => {
         }
     }
     predict.length = 0
-    counts.length = 0
 
     const findMaxIndices = (arr) => {
         let max = Math.max(...arr);
@@ -85,12 +84,15 @@ const dealWith = (arr, bgC, msg, counts, hotMun, predict,successCount) => {
     /**
      * 后1位热出  例如34538  8，8是开的数字，这局压的8和3
      */
+    let counts = []
+    for (let i = 0; i < 15; i++) {
+        counts.push(arr.filter(num => num === i.toString()).length)
+    }
     if (arr.length !== 0) {
         hotMun = findMaxIndices(counts)
     } else {
         hotMun = -1
     }
-
     function getIndicesOfZero(arr) {
         let indices = [];
         for (let i = 0; i < arr.length; i++) {
@@ -106,6 +108,7 @@ const dealWith = (arr, bgC, msg, counts, hotMun, predict,successCount) => {
         msg.push("热号是：" + hotMun.join(" "))
         msg.push("冷号是：" + getIndicesOfZero(counts.slice(0, 9)).join(" "))
     }
+    counts.length = 0
 
 
     /**   规则
