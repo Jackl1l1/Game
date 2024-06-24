@@ -46,44 +46,26 @@
             <p>预测压数:</p>
             <p v-for="m in msg_" :key="m">{{m}}</p>
         </div>
-        <!--        <div class="winning">-->
-        <!--            <p style="font-size: larger"> 胜率</p>-->
-        <!--            <p>99%</p>-->
-        <!--            <p>1%</p>-->
-        <!--            <p>100%</p>-->
-        <!--            <p>100%</p>-->
-        <!--            <p>100%</p>-->
-        <!--        </div>-->
         <div class="predict">
-            <table>
+            <table v-if="numbers.length >= 2">
                 <tr>
                     <th>胜率</th>
                     <td>{{predict[0]}}</td>
                 </tr>
-                <tr>
-                    <th>{{(((successCount[0]-1)/(numbers.length-1))*100).toFixed(2) + '%' }}</th>
-                    <td>{{predict[1]}}</td>
+                <tr v-for="i in 5">
+                    <th>{{(((successCount[i])/(numbers.length - 1)) * 100).toFixed(2) + '%' }}</th>
+                    <td>{{predict[i+1]}}</td>
                 </tr>
+            </table>
+
+            <table v-if="numbers.length < 2">
                 <tr>
-                    <th>{{(((successCount[1]-1)/(numbers.length-1))*100).toFixed(2) + '%' }}</th>
-                    <td>{{predict[2]}}</td>
+                    <th>胜率</th>
+                    <td>{{predict[0]}}</td>
                 </tr>
-                <tr>
-                    <th>{{(((successCount[2]-1)/(numbers.length-1))*100).toFixed(2) + '%' }}</th>
-                    <td>{{predict[3]}}</td>
-                </tr>
-                <tr>
-                    <th>{{(((successCount[3]-1)/(numbers.length-1))*100).toFixed(2) + '%' }}</th>
-                    <td>{{predict[4]}}</td>
-                </tr>
-                <tr>
-                    <th>{{(((successCount[4]-1)/(numbers.length-1))*100).toFixed(2) + '%' }}</th>
-                    <td>{{predict[5]}}</td>
-                </tr>
-                <tr>
-                    <th>{{(((successCount[5]-1)/(numbers.length-1))*100).toFixed(2) + '%' }}</th>
-                    <td>{{predict[6]}}</td>
-                </tr>
+                <tr v-for="i in 5">
+                    <th>100%</th>
+                    <td>{{predict[i+1]}}</td>
             </table>
         </div>
 
@@ -122,7 +104,7 @@
                     for (let i = 0; i < this.numbers.length; i++) {
                         dealWith(this.numbers.slice(0,i+1), this.bgC, this.msg_,this.counts, this.hotMun,this.predict,this.successCount)
                     }
-                    dealWith(this.numbers, this.bgC, this.msg_,this.counts, this.hotMun,this.predict,this.successCount)
+                    dealWith(this.numbers, this.bgC, this.msg_,this.counts, this.hotMun,this.predict,0)
                 },
             }
         })

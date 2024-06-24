@@ -242,7 +242,7 @@ const dealWith = (arr, bgC, msg, counts, hotMun, predict,successCount) => {
         predict.push("    ")
     }
 
-    if (arr.length>=2){
+    if (arr.length>=2 &&successCount !==0){
         if (old_predict[1].indexOf(getLastNum(1)) !==-1){
             successCount[0]++
         }
