@@ -52,9 +52,9 @@
                     <th>胜率</th>
                     <td>{{predict[0]}}</td>
                 </tr>
-                <tr v-for="i in 5">
-                    <th>{{(((successCount[i])/(numbers.length - 1)) * 100).toFixed(2) + '%' }}</th>
-                    <td>{{predict[i+1]}}</td>
+                <tr v-for="i in 6">
+                    <th>{{(((successCount[i - 1]) / (numbers.length - 1)) * 100).toFixed(2) + '%' }}</th>
+                    <td>{{predict[i]}}</td>
                 </tr>
             </table>
 
@@ -63,9 +63,9 @@
                     <th>胜率</th>
                     <td>{{predict[0]}}</td>
                 </tr>
-                <tr v-for="i in 5">
+                <tr v-for="i in 6">
                     <th>100%</th>
-                    <td>{{predict[i+1]}}</td>
+                    <td>{{predict[i]}}</td>
             </table>
         </div>
 
@@ -83,7 +83,7 @@
                     msg_: [],
                     predict: ["推荐压号区"],
                     counts: new Array(10).fill(0),
-                    successCount :new Array(6).fill(0),
+                    successCount: new Array(6).fill(0),
                     hotMun: [],
                     hotMun_15: [],
                     coldMun_15: [],
@@ -93,18 +93,14 @@
                 validateInput(event) {
                     this.inputValue = event.target.value.split('');
                     this.numbers = this.inputValue.slice(-15)
-                    this.counts.length = 0
                     this.successCount.fill(0)
                     for (let i = 0; i < 15; i++) {
                         this.counts.push(this.numbers.filter(num => num === i.toString()).length)
                     }
 
-
-                    // dealWith(this.numbers, this.bgC, this.msg_,this.counts, this.hotMun,this.predict)
-                    for (let i = 0; i < this.numbers.length; i++) {
-                        dealWith(this.numbers.slice(0,i+1), this.bgC, this.msg_,this.counts, this.hotMun,this.predict,this.successCount)
+                    for (let i = 0; i <= this.numbers.length; i++) {
+                        dealWith(this.numbers.slice(0, i), this.bgC, this.msg_, this.counts, this.hotMun, this.predict, this.successCount)
                     }
-                    dealWith(this.numbers, this.bgC, this.msg_,this.counts, this.hotMun,this.predict,0)
                 },
             }
         })

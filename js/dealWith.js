@@ -1,11 +1,44 @@
 const dealWith = (arr, bgC, msg, counts, hotMun, predict,successCount) => {
     // 清空背景原有的颜色
-    let old_predict = predict.slice()
     bgC.fill(0)
-
     msg.length = 0
-    predict.length = 0
 
+    console.log(arr)
+    console.log(predict[1])
+    console.log(predict[2])
+    console.log(predict[3])
+    console.log(predict[4])
+    console.log(predict[5])
+    console.log(predict[6])
+    console.log("=========")
+    const getLastNum = (index) => {
+        if (arr.length < index) return -1
+        return parseInt(arr[arr.length - index])
+    }
+
+    if (arr.length>=2 &&successCount !==0){
+
+        if (predict[1].indexOf(getLastNum(1)) !==-1){
+            successCount[0]++
+        }
+        if (predict[2].indexOf(getLastNum(1)) !==-1){
+            successCount[1]++
+        }
+        if (predict[3].indexOf(getLastNum(1)) !==-1){
+            successCount[2]++
+        }
+        if (predict[4].indexOf(getLastNum(1)) !==-1){
+            successCount[3]++
+        }
+        if (predict[5].indexOf(getLastNum(1)) !==-1){
+            successCount[4]++
+        }
+        if (predict[6].indexOf(getLastNum(1)) !==-1){
+            successCount[5]++
+        }
+    }
+    predict.length = 0
+    counts.length = 0
 
     const findMaxIndices = (arr) => {
         let max = Math.max(...arr);
@@ -17,10 +50,7 @@ const dealWith = (arr, bgC, msg, counts, hotMun, predict,successCount) => {
         }
         return indices;
     }
-    const getLastNum = (index) => {
-        if (arr.length < index) return -1
-        return parseInt(arr[arr.length - index])
-    }
+
     const addGreen = (index) => {
         if (typeof index === typeof '') {
             index = parseInt(index)
@@ -240,27 +270,5 @@ const dealWith = (arr, bgC, msg, counts, hotMun, predict,successCount) => {
         predict.push("    ")
         predict.push("    ")
         predict.push("    ")
-    }
-
-    if (arr.length>=2 &&successCount !==0){
-        if (old_predict[1].indexOf(getLastNum(1)) !==-1){
-            successCount[0]++
-        }
-        if (old_predict[2].indexOf(getLastNum(1)) !==-1){
-            successCount[1]++
-        }
-        if (old_predict[3].indexOf(getLastNum(1)) !==-1){
-            successCount[2]++
-        }
-        if (old_predict[4].indexOf(getLastNum(1)) !==-1){
-            successCount[3]++
-        }
-        if (old_predict[5].indexOf(getLastNum(1)) !==-1){
-            successCount[4]++
-        }
-        if (old_predict[6].indexOf(getLastNum(1)) !==-1){
-            successCount[5]++
-        }
-        console.log(successCount)
     }
 }
