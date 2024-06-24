@@ -13,7 +13,7 @@
 
 <body>
 <div id="app">
-    <h1>近15次数字:<br>{{numbers.join(" ")}}</h1>
+    <h2>近15次数字:{{numbers.join(" ")}}</h2>
     <label>
         <input type="text" @input="validateInput" placeholder="请按顺序输入">
     </label>
@@ -23,12 +23,12 @@
     </div>
     <table v-for="row in 2" :key="row">
         <tr>
-            <td :class="'g'+(bgC[(row - 1) * 5 + col-1]).toString()" v-for="col in 5" :key="col">
+            <th :class="'g'+(bgC[(row - 1) * 5 + col-1]).toString()" v-for="col in 5" :key="col">
                 {{(row - 1) * 5 + col - 1}}
-            </td>
+            </th>
         </tr>
         <tr>
-            <td :class="`hot`+ifHot((row - 1) * 5 + col-1)" v-for="col in 5"
+            <td :class="`hot`+counts[((row - 1) * 5 + col-1)]" v-for="col in 5"
                 :key="col">
                 出现 {{counts[(row - 1) * 5 + col - 1]}} 次
             </td>
@@ -41,65 +41,88 @@
             </td>
         </tr>
     </table>
-    <div class="msg">
-        <p>预测压数:</p>
-        <p v-for="m in msg_" :key="m">{{m}}</p>
+    <div class="box">
+        <div class="msg">
+            <p>预测压数:</p>
+            <p v-for="m in msg_" :key="m">{{m}}</p>
+        </div>
+        <!--        <div class="winning">-->
+        <!--            <p style="font-size: larger"> 胜率</p>-->
+        <!--            <p>99%</p>-->
+        <!--            <p>1%</p>-->
+        <!--            <p>100%</p>-->
+        <!--            <p>100%</p>-->
+        <!--            <p>100%</p>-->
+        <!--        </div>-->
+        <div class="predict">
+            <table>
+                <tr>
+                    <th>胜率</th>
+                    <td>大</td>
+                </tr>
+                <tr>
+                    <th>100%</th>
+                    <td>{{predict[1]}}</td>
+                </tr>
+                <tr>
+                    <th>100%</th>
+                    <td>{{predict[2]}}</td>
+                </tr>
+                <tr>
+                    <th>100%</th>
+                    <td>{{predict[3]}}</td>
+                </tr>
+                <tr>
+                    <th>100%</th>
+                    <td>{{predict[4]}}</td>
+                </tr>
+                <tr>
+                    <th>100%</th>
+                    <td>{{predict[5]}}</td>
+                </tr>
+                <tr>
+                    <th>100%</th>
+                    <td>{{predict[6]}}</td>
+                </tr>
+            </table>
+        </div>
+
     </div>
 
 </div>
 
 <script>
     const app = Vue.createApp({
-        data() {
-                return{
+            data() {
+                return {
                     numbers: [],
                     inputValue: [],
                     bgC: new Array(10).fill(`0`),
                     msg_: [],
+                    predict: [],
                     counts: new Array(10).fill(0),
-                    hotMun_5:[],
-                    hotMun_15:[],
-                    coldMun_15:[],
+                    hotMun: [],
+                    hotMun_15: [],
+                    coldMun_15: [],
                 }
-        },
-        methods: {
-            validateInput(event) {
-                // this.msg_ =''
-                this.inputValue = event.target.value.split('');
-                this.numbers = this.inputValue.slice(-15)
-                this.counts = []
-                for (let i = 0; i < 15; i++) {
-                    this.counts.push(this.numbers.filter(num => num === i.toString()).length)
-                }
-                console.log(this.counts)
-                if (this.numbers.length===0){
-                    this.hotMun = -1
-                }else {
-                    this.hotMun = this.findMaxIndex(this.counts)
-                }
-                dealWith(this.numbers, this.bgC, this.msg_,this.hotMun)
             },
-            findMaxIndex(arr) {
-                let max = arr[0];
-                let maxIndex = 0;
-                for (let i = 1; i < arr.length; i++) {
-                    if (arr[i] > max) {
-                        max = arr[i];
-                        maxIndex = i;
+            methods: {
+                validateInput(event) {
+                    this.inputValue = event.target.value.split('');
+                    this.numbers = this.inputValue.slice(-15)
+                    this.counts.length = 0
+                    for (let i = 0; i < 15; i++) {
+                        this.counts.push(this.numbers.filter(num => num === i.toString()).length)
                     }
-                }
-                return maxIndex;
-            },
-            ifHot(n) {
-                // this.counts.slice(-10).filter(num => num >= 5).length
-                if (n===0)return this.counts[0];
-                // if (n === this.hotMun) {
-                //     return "50"
-                // }
-                return this.counts[n]
+                    // console.log(this.counts)
+
+
+                    dealWith(this.numbers, this.bgC, this.msg_,this.counts, this.hotMun,this.predict)
+
+                },
             }
-        }
-    });
+        })
+    ;
 
     app.mount('#app');
 </script>

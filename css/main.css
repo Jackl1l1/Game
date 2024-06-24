@@ -295,7 +295,7 @@ table {
 }
 
 
-h1 {
+h1,h2,h3,h4,h5,h6 {
     text-align: center;
 
 }
@@ -306,9 +306,7 @@ p {
     text-align: left;
 }
 
-.msg{
-    margin-left: 25%;
-}
+
 
 th,
 td {
@@ -345,8 +343,41 @@ button {
     display: flex;
 }
 
+.msg{
+    width: 50%;
+}
+
+.box{
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+}
+.predict {
+    width: 50%;
+}
+.predict table {
+    width: 100%;
+}
+.predict td{
+    text-align: right;
+}
+
+
 @media (max-width: 768px) {
     table {
-        width: 80%;
+        width: 100%;
+
+    }
+    .msg{
+        width: 100%;
+        margin: 0 auto;
+    }
+    .box{
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+    }
+    .predict {
+        width: 100%;
     }
 }

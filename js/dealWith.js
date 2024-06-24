@@ -1,8 +1,21 @@
-const dealWith = (arr, bgC, msg,hotMun) => {
+const dealWith = (arr, bgC, msg, counts, hotMun, predict) => {
     // 清空背景原有的颜色
     bgC.fill(0)
-    msg.length = 0
 
+    msg.length = 0
+    predict.length = 0
+
+
+    const findMaxIndices = (arr) => {
+        let max = Math.max(...arr);
+        let indices = [];
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] === max) {
+                indices.push(i);
+            }
+        }
+        return indices;
+    }
     const getLastNum = (index) => {
         if (arr.length < index) return -1
         return arr[arr.length - index]
@@ -41,9 +54,14 @@ const dealWith = (arr, bgC, msg,hotMun) => {
     /**
      * 后1位热出  例如34538  8，8是开的数字，这局压的8和3
      */
-    if (hotMun!==-1){
+    if (arr.length !== 0) {
+        hotMun = findMaxIndices(counts)
+    } else {
+        hotMun = -1
+    }
+    if (hotMun !== -1) {
         addGreen(hotMun)
-        msg.push("热号是："+hotMun)
+        msg.push("热号是：" + hotMun.join(" "))
     }
 
     /**   规则
@@ -118,7 +136,7 @@ const dealWith = (arr, bgC, msg,hotMun) => {
         ['3', '6', '9']
     ]
     const addGroup = (num) => {
-        s =[]
+        s = []
         for (let i = 0; i < numSets.length; i++) {
             if (numSets[i].includes(num.toString())) {
                 addGreen(numSets[i]);
@@ -142,17 +160,44 @@ const dealWith = (arr, bgC, msg,hotMun) => {
     if (getLastNum(3) !== -1) {
         let n3 = getLastNum(3)
         let n4 = getLastNum(4)
-        console.log(n3)
-        console.log(n4)
         addGreen([n3, n4])
         if (n3 === n4) {
             addGroup(n3)
-            msg.push("注意单押 " + n3 + " +组合" +addGroup(n3))
+            msg.push("注意单押 " + n3 + " +组合" + addGroup(n3))
 
         } else if (n4 !== -1) {
-            msg.push("注意单押 " + n3 + " +组合" +addGroup(n3))
-            msg.push("注意单押 " + n4 + " +组合"+addGroup(n4))
+            msg.push("注意单押 " + n3 + " +组合" + addGroup(n3))
+            msg.push("注意单押 " + n4 + " +组合" + addGroup(n4))
         }
     }
+
+    /**
+     * 推荐 押注
+     */
+    predict.push("大")
+    if (arr.length !== 0) {
+        predict.push("单押 " + findMaxIndices(bgC).join(' 或 '))
+    }
+
+    function getIndicesInOrder(arr) {
+        let res = []
+        arr = arr.slice()
+        let sortedArr = arr.slice().sort((a, b) => b - a)
+
+        for (let num of sortedArr) {
+            let index = arr.indexOf(num)
+            res.push(index)
+            arr[index] = -1
+        }
+        return res
+    }
+
+    let predict_arr = getIndicesInOrder(bgC)
+
+    predict.push(predict_arr.slice(0, 2).join(","))
+    predict.push(predict_arr.slice(0, 3).join(","))
+    predict.push(predict_arr.slice(0, 4).join(","))
+    predict.push(predict_arr.slice(0, 5).join(","))
+    predict.push(predict_arr.slice(0, 6).join(","))
 
 }
