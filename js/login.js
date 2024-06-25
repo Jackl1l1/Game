@@ -7,7 +7,7 @@ function login() {
 
     // 获取当前日期
     const currentDate = new Date();
-
+    console.log(userData)
     if (userData[username] !=null &&userData[username][0] === password ) {
         // 获取用户数据中的有效期
         const userExpiryDays = userData[username][2];
@@ -18,15 +18,12 @@ function login() {
         // 计算时间差（以天为单位）
         const daysSinceRegistration = Math.ceil((currentDate - registrationDate) / (1000 * 60 * 60 * 24));
 
-
         if (daysSinceRegistration <= userExpiryDays){
             alert("登陆成功")
             location.href = "main.html"
         }else {
             alert("已超过有效期")
         }
-
-
     } else {
         alert("用户名或密码错误")
     }
