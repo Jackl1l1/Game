@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>游戏预测</title>
+    <script src="js/prohibit.js"></script>
 </head>
 
 <body>
@@ -25,36 +26,4 @@
     document.addEventListener('contextmenu', function (event) {
         event.preventDefault()
     })
-
-    // 检测用户是否打开了开发者工具
-    function checkDevTools() {
-        if (window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160) {
-            alert('请不要打开开发者工具！');
-        }
-    }
-    // 每隔一段时间检测一次
-    setInterval(checkDevTools, 1000);
-
-
-    // // 禁止另存网页
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-        alert('禁止另存网页！');
-    });
-
-    document.addEventListener('keydown', function(e){
-        if (e.ctrlKey && e.key === 's') {
-            alert(1)
-            e.preventDefault(); // 阻止Ctrl+S的默认保存行为
-        }
-    });
-
-
-    document.addEventListener('contextmenu', function(e){
-        alert(1)
-        e.preventDefault(); // 阻止右键菜单默认行为
-    });
-
-
-
 </script>
