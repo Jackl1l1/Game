@@ -3,7 +3,7 @@ const dealWith = (arr, bgC, msg,msg1,counts, hotMun, predict,successCount) => {
     bgC.fill(0)
     msg.length = 0
     msg1.length = 0
-    
+
     console.log(arr)
     console.log(predict[1])
     console.log(predict[2])
@@ -227,11 +227,18 @@ const dealWith = (arr, bgC, msg,msg1,counts, hotMun, predict,successCount) => {
         let n4 = getLastNum(4)
         addGreen([n3, n4])
         if (n3 === n4) {
-            // addGroup(n3)
+            addGreen(n3)
+            addGreen(n3)
+            addGreen(n3)
             msg.push("组合" + addGroup(n3) + ".")
             msg.push("注意单押 " + n3)
 
         } else if (n4 !== -1) {
+            addGreen(n3)
+            addGreen(n3)
+            addGreen(n4)
+            addGreen(n4)
+
             msg.push(".组合" + addGroup(n3))
 
             msg.push("注意单押 " + n3)
