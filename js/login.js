@@ -1,10 +1,32 @@
+
+
 function login() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const rememberCheckbox = document.getElementById('remember');
 
-    if (userData[username] === password) {
-        alert("登陆成功")
+    // 获取当前日期
+    const currentDate = new Date();
+
+    if (userData[username] !=null &&userData[username][0] === password ) {
+        // 获取用户数据中的有效期
+        const userExpiryDays = userData[username][2];
+
+        // 计算用户注册时间
+        const registrationDate = new Date(userData[username][1]);
+
+        // 计算时间差（以天为单位）
+        const daysSinceRegistration = Math.ceil((currentDate - registrationDate) / (1000 * 60 * 60 * 24));
+
+
+        if (daysSinceRegistration <= userExpiryDays){
+            alert("登陆成功")
+
+        }else {
+            alert("已超过有效期")
+        }
+
+
     } else {
         alert("用户名或密码错误")
     }
@@ -32,4 +54,3 @@ window.addEventListener('load', () => {
         document.getElementById('remember').checked = true;
     }
 });
-
