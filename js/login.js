@@ -21,7 +21,7 @@ function login() {
 
         if (daysSinceRegistration <= userExpiryDays){
             alert("登陆成功")
-
+            location.href = "main.html"
         }else {
             alert("已超过有效期")
         }
