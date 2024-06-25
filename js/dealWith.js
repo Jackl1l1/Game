@@ -1,8 +1,9 @@
-const dealWith = (arr, bgC, msg,counts, hotMun, predict,successCount) => {
+const dealWith = (arr, bgC, msg,msg1,counts, hotMun, predict,successCount) => {
     // 清空背景原有的颜色
     bgC.fill(0)
     msg.length = 0
-
+    msg1.length = 0
+    
     console.log(arr)
     console.log(predict[1])
     console.log(predict[2])
@@ -214,6 +215,7 @@ const dealWith = (arr, bgC, msg,counts, hotMun, predict,successCount) => {
             addGreen(numSets[i]);
             addGreen(numSets[i]);
             msg.push("组合：" + numSets[i].join(","));
+            msg1.push("固定压法：" + numSets[i].join(",")+"+05四局未出就压");
         }
     }
     /** 规则

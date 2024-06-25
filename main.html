@@ -67,6 +67,9 @@
                     <th>100%</th>
                     <td>{{predict[i]}}</td>
             </table>
+            <div >
+                <p v-for="m in msg1" :key="m">{{m}}</p>
+            </div>
         </div>
 
     </div>
@@ -81,6 +84,7 @@
                     inputValue: [],
                     bgC: new Array(10).fill(`0`),
                     msg_: [],
+                    msg1:[],
                     predict: ["推荐压号区"],
                     counts: new Array(10).fill(0),
                     successCount: new Array(6).fill(0),
@@ -97,7 +101,7 @@
                     this.counts = new Array(10).fill(0)
 
                     for (let i = 0; i <= this.numbers.length; i++) {
-                        dealWith(this.numbers.slice(0, i), this.bgC, this.msg_, this.counts, this.hotMun, this.predict, this.successCount)
+                        dealWith(this.numbers.slice(0, i), this.bgC, this.msg_,this.msg1, this.counts, this.hotMun, this.predict, this.successCount)
                     }
                     console.log(this.counts)
                 },
