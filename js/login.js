@@ -7,7 +7,7 @@ function login() {
 
     // 获取当前日期
     const currentDate = new Date();
-    console.log(userData)
+    // console.log(userData)
     if (userData[username] !=null &&userData[username][0] === password ) {
         // 获取用户数据中的有效期
         const userExpiryDays = userData[username][2];
