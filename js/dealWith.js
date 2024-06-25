@@ -1,4 +1,4 @@
-const dealWith = (arr, bgC, msg,msg1,counts, hotMun, predict,successCount) => {
+const dealWith = (arr, bgC, msg, msg1, counts, hotMun, predict, successCount) => {
     // 清空背景原有的颜色
     bgC.fill(0)
     msg.length = 0
