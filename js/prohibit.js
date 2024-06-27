@@ -1,12 +1,12 @@
-检测用户是否打开了开发者工具
-function checkDevTools() {
-    if (window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160) {
-        alert('请不要打开开发者工具！');
-        location.href = "0.0.0.0"
-    }
-}
-每隔一段时间检测一次
-setInterval(checkDevTools, 1000);
+// 检测用户是否打开了开发者工具
+// function checkDevTools() {
+//     if (window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160) {
+//         alert('请不要打开开发者工具！');
+//         location.href = "0.0.0.0"
+//     }
+// }
+// 每隔一段时间检测一次
+// setInterval(checkDevTools, 1000);
 
 
 // // 禁止另存网页
