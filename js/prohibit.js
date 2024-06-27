@@ -5,7 +5,7 @@
 //         location.href = "0.0.0.0"
 //     }
 // }
-// // 每隔一段时间检测一次
+// 每隔一段时间检测一次
 // setInterval(checkDevTools, 1000);
 
 
