@@ -31,14 +31,14 @@
         <tr>
             <td :class="`hot`+counts[((row - 1) * 5 + col-1)]" v-for="col in 5"
                 :key="col">
-                出现 {{counts[(row - 1) * 5 + col - 1]}} 次
+                出 {{counts[(row - 1) * 5 + col - 1]}}
             </td>
         </tr>
         <tr>
             <td :class="`hot`+parseInt((inputValue.length-inputValue.lastIndexOf(((row - 1) * 5 + col - 1).toString())-1)/2).toString()"
                 v-for="col in 5"
                 :key="col">
-                {{inputValue.length - inputValue.lastIndexOf(((row - 1) * 5 + col - 1).toString()) - 1}} 次 未出现
+                未出 {{inputValue.length - inputValue.lastIndexOf(((row - 1) * 5 + col - 1).toString()) - 1}}
             </td>
         </tr>
     </table>
