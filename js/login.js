@@ -1,5 +1,3 @@
-
-
 function login() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -8,20 +6,24 @@ function login() {
     // 获取当前日期
     const currentDate = new Date();
     // console.log(userData)
-    if (userData[username] !=null &&userData[username][0] === password ) {
+    let adjustedValidPeriod;
+    if (userData[username] != null && userData[username][0] === password) {
         // 获取用户数据中的有效期
         const userExpiryDays = userData[username][2];
-
         // 计算用户注册时间
         const registrationDate = new Date(userData[username][1]);
 
-        // 计算时间差（以天为单位）
-        const daysSinceRegistration = Math.ceil((currentDate - registrationDate) / (1000 * 60 * 60 * 24));
+        let expirationDate = new Date(registrationDate);
+        if (expirationDate.getMonth() + userExpiryDays > 11) {
+            adjustedValidPeriod = userExpiryDays - 1;
+        }
+        expirationDate.setMonth(expirationDate.getMonth() + adjustedValidPeriod);
 
-        if (daysSinceRegistration <= userExpiryDays){
+        expirationDate.setDate(expirationDate.getDate() + userExpiryDays);
+        if (currentDate <= expirationDate) {
             alert("登陆成功")
             location.href = "main.html"
-        }else {
+        } else {
             alert("已超过有效期")
         }
     } else {
